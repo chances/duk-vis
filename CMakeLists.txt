@@ -11,6 +11,7 @@ file(COPY ${SHADER_DATA_FILES} DESTINATION .)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include(cmake/oogl.cmake)
+include(cmake/rxcpp.cmake)
 
 list(APPEND SOURCE_FILES
     sources/gl/ShaderFile.cpp
