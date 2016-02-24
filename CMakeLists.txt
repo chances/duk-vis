@@ -3,9 +3,19 @@ project(duk_vis)
 
 set(BUILD_TARGET_NAME "duk_vis")
 
+file(GLOB SHADER_DATA_FILES
+  "data/*.glsl"
+)
+file(COPY ${SHADER_DATA_FILES} DESTINATION .)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include(cmake/oogl.cmake)
+
+list(APPEND SOURCE_FILES
+    sources/gl/ShaderFile.cpp
+    sources/gl/Triangle.cpp
+)
 
 list(APPEND SOURCE_FILES sources/main.cpp)
 add_executable(${BUILD_TARGET_NAME} ${SOURCE_FILES})

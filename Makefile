@@ -14,7 +14,7 @@ cmake:
 	cd build; cmake ..
 
 run:
-	./build/duk_vis
+	cd build; ./duk_vis
 
 # Configure project (setup submoduale dependencies)
 configure:
