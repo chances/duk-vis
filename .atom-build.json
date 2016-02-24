@@ -1,0 +1,15 @@
+{
+  "cmd": "make",
+  "name": "Make",
+  "sh": true,
+  "cwd": "{PROJECT_PATH}",
+  "errorMatch": [
+    "(?<file>[\\/0-9a-zA-Z\\.\\+_-]+):(?<line>\\d+):(?<col>\\d+): error",
+    "\n(?<file>[\\/0-9a-zA-Z\\.\\+_-]+):(?<line>\\d+):(?<col>\\d+): error"
+  ],
+  "targets": {
+    "Clean": {
+      "cmd": "make clean"
+    }
+  }
+}

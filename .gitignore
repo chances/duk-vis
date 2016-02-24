@@ -1,0 +1,9 @@
+# CLion
+.idea/workspace.xml
+.idea/tasks.xml
+
+# CMake intermediary files
+CMakeFiles
+
+# build dir
+build
