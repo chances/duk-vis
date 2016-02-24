@@ -17,6 +17,7 @@ include(cmake/rxcpp.cmake)
 list(APPEND SOURCE_FILES
     sources/gl/ShaderFile.cpp
     sources/gl/Triangle.cpp
+    sources/gl/Camera.cpp
 )
 
 list(APPEND SOURCE_FILES sources/main.cpp)
