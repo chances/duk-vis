@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include(cmake/oogl.cmake)
 
-list(APPEND SOURCE_FILES main.cpp)
+list(APPEND SOURCE_FILES sources/main.cpp)
 add_executable(${BUILD_TARGET_NAME} ${SOURCE_FILES})
 
 macro(link_lib libName)
