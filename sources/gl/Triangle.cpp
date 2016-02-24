@@ -43,6 +43,10 @@ namespace GL {
     return true;
   }
 
+  Program* Triangle::GetProgram() {
+    return shader;
+  }
+
   void Triangle::Draw() {
     glUseProgram(*shader);
 

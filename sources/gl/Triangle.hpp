@@ -15,6 +15,7 @@ namespace GL {
         ~Triangle();
 
         bool BindShaders(const std::string& vertPath, const std::string& fragPath);
+        Program* GetProgram();
         void Draw();
     private:
         Context* gl;

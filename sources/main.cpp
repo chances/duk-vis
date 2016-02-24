@@ -66,6 +66,11 @@ void windowRefresh(GLFWwindow* window) {
 void init() {
   triangle = new GL::Triangle(gl);
   triangle->BindShaders("triangle.vs.glsl", "triangle.fs.glsl");
+
+  GL::Program* shader = triangle->GetProgram();
+  GL::Color color(100, 100, 200, 255);
+  GL::Vec4 colorVec(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+  shader->SetUniform(shader->GetUniform("color"), colorVec);
 }
 
 void render() {
