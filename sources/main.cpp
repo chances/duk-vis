@@ -28,7 +28,7 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  window = glfwCreateWindow(800, 600, "DukDukVis", NULL, NULL);
+  window = glfwCreateWindow(800, 600, "DukVis", NULL, NULL);
   if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);
