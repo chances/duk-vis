@@ -5,7 +5,7 @@
 #include <exception>
 #include <string>
 
-#define GLSL( x ) "#version 330 core\n" #x
+#define GLSL_3( x ) "#version 330 core\n" #x
 
 namespace GL {
 
