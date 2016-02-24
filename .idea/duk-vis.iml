@@ -2,11 +2,15 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/cmake/oogl.cmake" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/Context_GLFW.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/Window_GLFW.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/Context_GLFW.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/gl/Triangle.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/gl/ShaderFile.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/gl/Triangle.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/gl/ShaderFile.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/oogl.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/rxcpp.cmake" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
