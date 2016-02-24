@@ -13,7 +13,7 @@ cmake:
 	mkdir -p build
 	cd build; cmake ..
 
-run:
+run: build
 	cd build; ./duk_vis
 
 # Configure project (setup submoduale dependencies)
