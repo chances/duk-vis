@@ -3,10 +3,11 @@
 #include <iostream>
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/Camera.hpp"
-#include "gl/Triangle.hpp"
+#include "gl/Element.hpp"
 #include <GL/OOGL.hpp>
 
 using namespace std;
@@ -14,7 +15,6 @@ using namespace std;
 void windowRefresh(GLFWwindow* window);
 void init();
 void render();
-void handleError();
 
 GLFWwindow *window;
 
@@ -22,7 +22,6 @@ GL::Context* gl;
 
 int width = 800, height = 600;
 GL::Camera* camera;
-GL::Triangle* triangle;
 
 int main() {
 
@@ -73,56 +72,75 @@ void windowRefresh(GLFWwindow* window) {
   glfwSwapBuffers(window);
 }
 
+GL::VertexArray* vao = 0;
+GL::VertexBuffer* vbo;
+GL::Program* shader;
+GL::Uniform modelUniform;
+GL::Uniform colorUniform;
+
 void init() {
   camera = new GL::Camera(width, height);
-  // camera->MoveTo(glm::vec3(5,5,5));
+  camera->MoveTo(glm::vec3(5,3,2));
 
-  triangle = new GL::Triangle(gl);
-  triangle->BindShaders("triangle.vs.glsl", "triangle.fs.glsl");
+  shader = Element::bindShaders("triangle.vs.glsl", "triangle.fs.glsl");
+  modelUniform = shader->GetUniform("model");
+  colorUniform = shader->GetUniform("color");
+
+  glUniformMatrix4fv(modelUniform, 1, false, glm::value_ptr(glm::mat4(1.0f)));
+  GL::Color color = GL::Color(255, 0, 0, 50);
+  GL::Vec4 colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+  shader->SetUniform(shader->GetUniform("color"), colorVec);
+
+  float vertices[] {
+    -0.5f,  0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f
+  };
+  Element::vertices verts(vertices);
+  verts.numVerts = ARRAY_SIZE(vertices);
+  Element::create(vao, vbo, shader, &verts);
 }
 
 double oldTime = 0.0;
-int rTime = 100;
+double rTime = 0.0;
 
 void render() {
   // glClearColor(0.2f, 0.2f, 0.5f, 0.0f);
 
-  GL::Program* shader = triangle->GetProgram();
-  glUseProgram(*shader);
-
   double time = glfwGetTime();
-  rTime += ((time - oldTime) * 127.5);
+  rTime += ((time - oldTime) * 255);
   if (rTime > 255) rTime = 0;
 
   glm::mat4 model = glm::mat4(1.0f);
   // rotation.RotateX(GL::Rad(static_cast<float>(rTime)));
-  // model.RotateY(GL::Rad(static_cast<float>((rTime / 255.0) * 360.0)));
+  model = glm::rotate(model, glm::radians((float)((rTime / 255) * 360.0)), glm::vec3(0,1,0));
+  // model = glm::rotateY(model, (float)((rTime / 255.0) * 360.0));
 
-  glUniformMatrix4fv(shader->GetUniform("model"), 1, false, glm::value_ptr(camera->Project(model)));
+  glUniformMatrix4fv(modelUniform, 1, false, glm::value_ptr(camera->Project(model)));
 
-  GL::Color color(rTime, 100, 200, 255);
-  GL::Vec4 colorVec(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
-  shader->SetUniform(shader->GetUniform("color"), colorVec);
+  // GL::Color color(rTime, 100, 200, 255);
+  // GL::Vec4 colorVec(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+  // shader->SetUniform(colorUniform, colorVec);
 
   oldTime = time;
 
   gl->Clear();
 
-  glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LESS);
+  // glEnable(GL_DEPTH_TEST);
+  // glDepthFunc(GL_LESS);
 
-  triangle->Draw();
+  Element::draw(vao);
 
-  glDisable(GL_DEPTH_TEST);
+  // glDisable(GL_DEPTH_TEST);
 
   // Setup 2D projection
   glm::mat4 projection = glm::ortho(0, width, height, 0);
 
   glUniformMatrix4fv(shader->GetUniform("model"), 1, false, glm::value_ptr(projection));
 
-  color = GL::Color(255, 0, 0, 255);
-  colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+  GL::Color color = GL::Color(255, 20, 20, 50);
+  GL::Vec4 colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
   shader->SetUniform(shader->GetUniform("color"), colorVec);
 
-  triangle->Draw();
+  Element::draw(vao);
 }
