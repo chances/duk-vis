@@ -1,5 +1,4 @@
 #include <GLFW/glfw3.h>
-#include <math.h>
 #include <iostream>
 
 #include <glm/glm.hpp>

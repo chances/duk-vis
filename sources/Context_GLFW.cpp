@@ -2,13 +2,13 @@
 
 namespace GL {
 
-    Context::Context() {
-        owned = false;
+  Context::Context() {
+    owned = false;
 
-        glGetIntegerv(GL_VIEWPORT, (GLint*)&defaultViewport);
-    }
+    glGetIntegerv(GL_VIEWPORT, (GLint*)&defaultViewport);
+  }
 
-    Context::~Context() {
-        if (!owned) return;
-    }
+  Context::~Context() {
+    if (!owned) return;
+  }
 }
