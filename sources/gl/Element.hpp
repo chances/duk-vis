@@ -40,24 +40,43 @@ namespace Element {
     }
   };
 
-  object* create(char* name, vertices* verts) {
-    object* obj = new object(name);
+  object* create(vertices* verts, object* prototype, int indexCount = 3,
+      bool loadShaders = true, bool bindAttributes = true) {
+    object* obj = prototype;
 
-    obj->shader = Shaders::bindShaders(string(name).append(".vs.glsl"), string(name).append(".fs.glsl"));
+    if (loadShaders) {
+      obj->shader = Shaders::bindShaders(
+        string(obj->name).append(".vs.glsl"),
+        string(obj->name).append(".fs.glsl")
+      );
+    }
 
-    int vertexCount = verts->numVerts / 3;
+    int vertexCount = verts->numVerts / indexCount;
 
-    GL::VertexBuffer* vbo = new GL::VertexBuffer(verts->verts, sizeof(float)*verts->numVerts, GL::BufferUsage::StaticDraw);
+    GL::VertexBuffer* vbo = new GL::VertexBuffer(
+      verts->verts, sizeof(float)*verts->numVerts, GL::BufferUsage::StaticDraw
+    );
 
     obj->vao = new GL::VertexArray();
-    obj->vao->BindAttribute(obj->shader->GetAttribute("position"), *vbo, GL::Type::Float, 3, 0, 0);
+    if (bindAttributes) {
+      obj->vao->BindAttribute(
+        obj->shader->GetAttribute("position"), *vbo, GL::Type::Float, 3, 0, 0
+      );
+    }
 
     obj->vbos.push_back(vbo);
+    obj->vboVertices.insert(vboVertices(vbo, verts));
 
     // Add vao to index of vertex counts
     vaoVertices.insert(vaoVertexCount(obj->vao, vertexCount));
 
     return obj;
+  }
+
+  object* create(char* name, vertices* verts) {
+    object* obj = new object(name);
+
+    return create(verts, obj);
   }
 
   void draw(GL::VertexArray* vao) {
