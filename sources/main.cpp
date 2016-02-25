@@ -18,8 +18,6 @@ void render();
 
 GLFWwindow *window;
 
-GL::Context* gl;
-
 int width = 800, height = 600;
 GL::Camera* camera;
 
@@ -39,9 +37,6 @@ int main() {
     glfwTerminate();
     exit(EXIT_FAILURE);
   }
-
-  GL::Context context = GL::Context::UseExistingContext();
-  gl = &context;
 
   glfwSetWindowRefreshCallback(window, windowRefresh);
 
@@ -72,24 +67,13 @@ void windowRefresh(GLFWwindow* window) {
   glfwSwapBuffers(window);
 }
 
-GL::VertexArray* vao = 0;
-GL::VertexBuffer* vbo;
-GL::Program* shader;
+Element::object* triangle;
 GL::Uniform modelUniform;
 GL::Uniform colorUniform;
 
 void init() {
   camera = new GL::Camera(width, height);
   camera->MoveTo(glm::vec3(5,3,2));
-
-  shader = Element::bindShaders("triangle.vs.glsl", "triangle.fs.glsl");
-  modelUniform = shader->GetUniform("model");
-  colorUniform = shader->GetUniform("color");
-
-  glUniformMatrix4fv(modelUniform, 1, false, glm::value_ptr(glm::mat4(1.0f)));
-  GL::Color color = GL::Color(255, 0, 0, 50);
-  GL::Vec4 colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
-  shader->SetUniform(shader->GetUniform("color"), colorVec);
 
   float vertices[] {
     -0.5f,  0.5f, 0.0f,
@@ -98,7 +82,9 @@ void init() {
   };
   Element::vertices verts(vertices);
   verts.numVerts = ARRAY_SIZE(vertices);
-  Element::create(vao, vbo, shader, &verts);
+  triangle = Element::create("triangle", &verts);
+  triangle->bindUniform("model");
+  triangle->bindUniform("color");
 }
 
 double oldTime = 0.0;
@@ -112,35 +98,31 @@ void render() {
   if (rTime > 255) rTime = 0;
 
   glm::mat4 model = glm::mat4(1.0f);
-  // rotation.RotateX(GL::Rad(static_cast<float>(rTime)));
   model = glm::rotate(model, glm::radians((float)((rTime / 255) * 360.0)), glm::vec3(0,1,0));
-  // model = glm::rotateY(model, (float)((rTime / 255.0) * 360.0));
+  glUniformMatrix4fv(triangle->uniforms.at("model"), 1, false, glm::value_ptr(camera->Project(model)));
 
-  glUniformMatrix4fv(modelUniform, 1, false, glm::value_ptr(camera->Project(model)));
-
-  // GL::Color color(rTime, 100, 200, 255);
-  // GL::Vec4 colorVec(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
-  // shader->SetUniform(colorUniform, colorVec);
+  GL::Vec4 colorVec(rTime / 255.0f, 100.0f / 255.0f, 200.0f / 255.0f, 1.0f);
+  triangle->shader->SetUniform(triangle->uniforms.at("color"), colorVec);
 
   oldTime = time;
 
-  gl->Clear();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // glEnable(GL_DEPTH_TEST);
   // glDepthFunc(GL_LESS);
 
-  Element::draw(vao);
+  Element::draw(triangle->vao);
 
   // glDisable(GL_DEPTH_TEST);
 
   // Setup 2D projection
-  glm::mat4 projection = glm::ortho(0, width, height, 0);
-
-  glUniformMatrix4fv(shader->GetUniform("model"), 1, false, glm::value_ptr(projection));
-
-  GL::Color color = GL::Color(255, 20, 20, 50);
-  GL::Vec4 colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
-  shader->SetUniform(shader->GetUniform("color"), colorVec);
-
-  Element::draw(vao);
+  // glm::mat4 projection = glm::ortho(0, width, height, 0);
+  //
+  // glUniformMatrix4fv(modelUniform, 1, false, glm::value_ptr(projection));
+  //
+  // GL::Color color = GL::Color(255, 20, 20, 50);
+  // GL::Vec4 colorVec = GL::Vec4(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
+  // triangle->shader->SetUniform(colorUniform, colorVec);
+  //
+  // Element::draw(triangle->vao);
 }
