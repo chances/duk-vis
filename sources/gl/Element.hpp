@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Shaders.hpp"
+#include "Textures.hpp"
 #include <GL/OOGL.hpp>
 
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
@@ -32,6 +33,7 @@ namespace Element {
     vector<GL::VertexBuffer*> vbos;
     map<const GL::VertexBuffer*, vertices*> vboVertices;
     map<const char*, GLuint> uniforms;
+    map<const char*, Textures::texture*> textures;
     object(char* name) : name(name) {};
     GL::Uniform bindUniform(char* name) {
       GL::Uniform uniform = shader->GetUniform(name);

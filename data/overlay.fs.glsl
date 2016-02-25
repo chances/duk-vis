@@ -16,7 +16,5 @@ void main() {
     // fragColor.x = TexCoords.x / TexCoords.y;
     // color = vec4(fragColor, 1.0);
 
-    color = penColor;
-
-    // color = penColor * texture(image, TexCoords);
+    color = penColor * texture(image, TexCoords);
 }

@@ -27,6 +27,7 @@ map<const char*, Element::object*> objects;
 
 Element::object* triangle = NULL;
 Element::object* overlay = NULL;
+GL::Color overlayColor = GL::Color(90, 150, 90, floor(255 * 0.65));
 
 int main() {
 
@@ -119,17 +120,22 @@ void init() {
     *(overlay->vbos[0]), GL::Type::Float, 4, 4 * sizeof(float), 0);
   overlay->bindUniform("model");
   overlay->bindUniform("projection");
+  overlay->bindUniform("image");
   overlay->bindUniform("penColor");
   glUniformMatrix4fv(overlay->uniforms.at("model"), 1, false, glm::value_ptr(
     glm::scale(glm::mat4(1.0f), glm::vec3((float)width, (float)height, 1.0))
   ));
   glUniformMatrix4fv(overlay->uniforms.at("projection"), 1, false, glm::value_ptr(projection));
 
+  overlay->textures.insert(Textures::namedTexture(
+    "overlay", Textures::empty(width, height)
+  ));
+  Textures::texture* overlayBuff = overlay->textures.at("overlay");
+  overlayBuff->penLine(floor(height / 2.0), overlayColor);
+
   objects.insert(object("triangle", triangle));
   objects.insert(object("overlay", overlay));
 }
-
-GL::Color overlayColor = GL::Color(90, 90, 90, floor(255 * 0.25));
 
 double oldTime = 0.0;
 double rTime = 0.0;
@@ -167,7 +173,8 @@ void render() {
 
   glUseProgram(*overlay->shader);
 
-  // glUniformMatrix4fv(overlay->uniforms.at("projection"), 1, false, glm::value_ptr(projection));
+  glActiveTexture(GL_TEXTURE0);
+  overlay->textures.at("overlay")->bind(0);
 
   colorVec = GL::Vec4(overlayColor.R / 255.0f, overlayColor.G / 255.0f, overlayColor.B / 255.0f, overlayColor.A / 255.0f);
   overlay->shader->SetUniform(overlay->uniforms.at("penColor"), colorVec);
