@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 
+#include "Element.hpp"
 #include <GL/OOGL.hpp>
 
 using namespace std;
@@ -18,7 +19,7 @@ namespace Textures {
       delete texture;
       delete img;
     }
-    void penLine(int y, const GL::Color &color) {
+    void penLine(int y, const GL::Color color) {
       for (size_t x = 0; x < img->GetWidth(); x++) {
         img->SetPixel(x, y, color);
       }

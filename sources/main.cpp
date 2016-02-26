@@ -27,7 +27,7 @@ map<const char*, Element::object*> objects;
 
 Element::object* triangle = NULL;
 Element::object* overlay = NULL;
-GL::Color overlayColor = GL::Color(90, 150, 90, floor(255 * 0.65));
+Element::color overlayColor(50, 200, 50, 0.65);
 
 int main() {
 
@@ -153,8 +153,8 @@ void render() {
   model = glm::rotate(model, glm::radians((float)((rTime / 255) * 360.0)), glm::vec3(0,1,0));
   glUniformMatrix4fv(triangle->uniforms.at("model"), 1, false, glm::value_ptr(camera->Project(model)));
 
-  GL::Vec4 colorVec(rTime / 255.0f, 100.0f / 255.0f, 200.0f / 255.0f, 1.0f);
-  triangle->shader->SetUniform(triangle->uniforms.at("color"), colorVec);
+  Element::color color(1.0f, 0.0f, 0.0f, 1.0f);
+  glUniform4fv(triangle->uniforms.at("color"), 1, color);
 
   oldTime = time;
 
@@ -176,8 +176,7 @@ void render() {
   glActiveTexture(GL_TEXTURE0);
   overlay->textures.at("overlay")->bind(0);
 
-  colorVec = GL::Vec4(overlayColor.R / 255.0f, overlayColor.G / 255.0f, overlayColor.B / 255.0f, overlayColor.A / 255.0f);
-  overlay->shader->SetUniform(overlay->uniforms.at("penColor"), colorVec);
+  glUniform4fv(overlay->uniforms.at("penColor"), 1, overlayColor);
 
   Element::draw(overlay->vao);
 
