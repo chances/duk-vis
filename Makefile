@@ -7,11 +7,11 @@ build: build/Makefile
 
 build/Makefile:
 	mkdir -p build
-	cd build; cmake ..
+	cd build; cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 cmake:
 	mkdir -p build
-	cd build; cmake ..
+	cd build; cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 run: build
 	cd build; ./duk_vis
