@@ -4,11 +4,10 @@
 #include <map>
 #include <vector>
 
+#include "Primitives.hpp"
 #include "Shaders.hpp"
 #include "Textures.hpp"
 #include <GL/OOGL.hpp>
-
-#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 using namespace std;
 
@@ -36,25 +35,17 @@ namespace Element {
     }
   };
 
-  struct vertices {
-    int numIndices;
-    float* verts;
-    vertices(float* vertices) : numIndices(0) {
-      verts = vertices;
-    }
-  };
-
-  typedef pair<const GL::VertexArray*, int> vaoVertexCount;
+  typedef pair<const GL::VertexArray*, int> vaoIndexCount;
   map<const GL::VertexArray*, int> vaoIndices;
 
-  typedef pair<const GL::VertexBuffer*, vertices*> vboVertices;
+  typedef pair<const GL::VertexBuffer*, Primitives::geometry*> vboVertices;
 
   struct object {
     char* name = NULL;
     GL::Program* shader = NULL;
     GL::VertexArray* vao = NULL;
     vector<GL::VertexBuffer*> vbos;
-    map<const GL::VertexBuffer*, vertices*> vboVertices;
+    map<const GL::VertexBuffer*, Primitives::geometry*> vboVertices;
     map<const char*, GLuint> uniforms;
     map<const char*, Textures::texture*> textures;
     object(char* name) : name(name) {};
@@ -65,8 +56,9 @@ namespace Element {
     }
   };
 
-  object* create(vertices* verts, object* prototype, int vertexIndexCount = 3,
-      bool loadShaders = true, bool bindAttributes = true) {
+  object* create(Primitives::geometry* geometry, object* prototype,
+      int vertexIndexCount = 3, bool loadShaders = true,
+      bool bindAttributes = true) {
     object* obj = prototype;
 
     if (loadShaders) {
@@ -76,10 +68,10 @@ namespace Element {
       );
     }
 
-    int vertexCount = verts->numIndices / vertexIndexCount;
+    int vertexCount = geometry->numIndices / vertexIndexCount;
 
     GL::VertexBuffer* vbo = new GL::VertexBuffer(
-      verts->verts, sizeof(float)*verts->numIndices, GL::BufferUsage::StaticDraw
+      geometry->vertices, sizeof(float) * geometry->numIndices, GL::BufferUsage::StaticDraw
     );
 
     obj->vao = new GL::VertexArray();
@@ -91,18 +83,18 @@ namespace Element {
     }
 
     obj->vbos.push_back(vbo);
-    obj->vboVertices.insert(vboVertices(vbo, verts));
+    obj->vboVertices.insert(vboVertices(vbo, geometry));
 
     // Add vao to index of vertex counts
-    vaoIndices.insert(vaoVertexCount(obj->vao, vertexCount));
+    vaoIndices.insert(vaoIndexCount(obj->vao, vertexCount));
 
     return obj;
   }
 
-  object* create(char* name, vertices* verts) {
+  object* create(char* name, Primitives::geometry* geometry) {
     object* obj = new object(name);
 
-    return create(verts, obj);
+    return create(geometry, obj);
   }
 
   void draw(GL::VertexArray* vao) {

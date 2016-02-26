@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "gl/Primitives.hpp"
 #include "gl/Camera.hpp"
 #include "gl/Element.hpp"
 #include <GL/OOGL.hpp>
@@ -91,23 +92,7 @@ void init() {
 
   projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
 
-  float vertices[] {
-    -1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f,
-     1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f, 1.0f,-1.0f,-1.0f,
-    1.0f, 1.0f,-1.0f, 1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f,
-    -1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,
-    -1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f, 1.0f,-1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f, 1.0f,-1.0f,-1.0f, 1.0f, 1.0f,-1.0f,
-    1.0f,-1.0f,-1.0f, 1.0f, 1.0f, 1.0f, 1.0f,-1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f, 1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-    1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f,-1.0f, 1.0f
-  };
-  Element::vertices verts(vertices);
-  verts.numIndices = ARRAY_SIZE(vertices);
-  cube = Element::create("cube", &verts);
+  cube = Element::create("cube", Primitives::cube());
   cube->bindUniform("mvp");
   cube->bindUniform("color");
 
@@ -121,10 +106,12 @@ void init() {
     1.0f, 1.0f, 1.0f, 1.0f,
     1.0f, 0.0f, 1.0f, 0.0f
   };
-  Element::vertices vertsO(verticesOverlay);
-  vertsO.numIndices = ARRAY_SIZE(verticesOverlay);
+  uint count = ARRAY_SIZE(verticesOverlay);
+  float* overlayGeom = new float[count];
+  std::copy(verticesOverlay, verticesOverlay + count, overlayGeom);
+  Primitives::geometry* vertsO = new Primitives::geometry(overlayGeom, count);
   overlay = new Element::object("overlay");
-  overlay = Element::create(&vertsO, overlay, 4, true, false);
+  overlay = Element::create(vertsO, overlay, 4, true, false);
   overlay->vao->BindAttribute(overlay->shader->GetAttribute("vertex"),
     *(overlay->vbos[0]), GL::Type::Float, 4, 4 * sizeof(float), 0);
   overlay->bindUniform("mvp");
