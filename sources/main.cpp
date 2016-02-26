@@ -64,6 +64,8 @@ int main() {
 
   glfwDestroyWindow(window);
 
+  //TODO: Remember to release all OpenGL held resources (DukVis' are "released" on their own)
+
   glfwTerminate();
   exit(EXIT_SUCCESS);
 }
