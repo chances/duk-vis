@@ -2,6 +2,14 @@
 
 all: build
 
+release:
+	mkdir -p build/release
+	cd build/release;\
+	cmake -DCMAKE_BUILD_TYPE=Release ../..;\
+	make;\
+	rm -rf CMakeFiles;\
+	rm cmake_install.cmake CMakeCache.txt Makefile
+
 build: build/Makefile
 	cd build; make
 
@@ -25,4 +33,4 @@ configure:
 clean:
 	rm -rf build
 
-.PHONY: build cmake run configure clean
+.PHONY: release build cmake run configure clean
