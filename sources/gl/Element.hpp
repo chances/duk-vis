@@ -13,6 +13,29 @@
 using namespace std;
 
 namespace Element {
+  struct color {
+    float r, g, b, a;
+    color() : color(0.0f, 0.0f, 0.0f, 0.0f) {}
+    color(int r, int g, int b) :
+      color(r / 255.0f, g / 255.0f, b / 255.0f, 1.0f) {}
+    color(int r, int g, int b, float a) :
+      color(r / 255.0f, g / 255.0f, b / 255.0f, a) {}
+    color(float r, float g, float b) : color(r, g, b, 1.0f) {}
+    color(float r, float g, float b, float a) {
+      this->r = r;  this->g = g;  this->b = b;  this->a = a;
+    }
+    color(float* colorArr) {
+      this->r = colorArr[0];  this->g = colorArr[1];
+      this->b = colorArr[2];  this->a = colorArr[3];
+    }
+    operator GL::Color() const {
+      return GL::Color(r * 255.0f, g * 255.0f, b * 255.0f, a * 255.0f);
+    }
+    operator float*() const {
+      return (float*)this;
+    }
+  };
+
   struct vertices {
     int numVerts;
     float* verts;
