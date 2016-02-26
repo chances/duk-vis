@@ -25,7 +25,7 @@ glm::mat4 projection;
 typedef pair<const char*, Element::object*> object;
 map<const char*, Element::object*> objects;
 
-Element::object* triangle = NULL;
+Element::object* cube = NULL;
 Element::object* overlay = NULL;
 Element::color overlayColor(50, 200, 50, 0.65);
 
@@ -91,16 +91,25 @@ void init() {
 
   projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
 
-  float verticesTriangle[] {
-    -0.5f,  0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f
+  float vertices[] {
+    -1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f,
+     1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f, 1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f,-1.0f, 1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f, 1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f, 1.0f,-1.0f,-1.0f, 1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f, 1.0f, 1.0f, 1.0f, 1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f, 1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
+    1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f,-1.0f, 1.0f
   };
-  Element::vertices verts(verticesTriangle);
-  verts.numVerts = ARRAY_SIZE(verticesTriangle);
-  triangle = Element::create("triangle", &verts);
-  triangle->bindUniform("mvp");
-  triangle->bindUniform("color");
+  Element::vertices verts(vertices);
+  verts.numVerts = ARRAY_SIZE(vertices);
+  cube = Element::create("cube", &verts);
+  cube->bindUniform("mvp");
+  cube->bindUniform("color");
 
   float verticesOverlay[] {
     // Pos      // Tex
@@ -133,7 +142,7 @@ void init() {
   Textures::texture* overlayBuff = overlay->textures.at("overlay");
   overlayBuff->penLine(floor(height / 2.0), overlayColor);
 
-  objects.insert(object("triangle", triangle));
+  objects.insert(object("cube", cube));
   objects.insert(object("overlay", overlay));
 }
 
@@ -147,21 +156,21 @@ void render() {
   rTime += ((time - oldTime) * 255);
   if (rTime > 255) rTime = 0;
 
-  glUseProgram(*triangle->shader);
+  glUseProgram(*cube->shader);
 
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians((float)((rTime / 255) * 360.0)), glm::vec3(0,1,0));
-  glUniformMatrix4fv(triangle->uniforms.at("mvp"), 1, false, glm::value_ptr(camera->Project(model)));
+  glUniformMatrix4fv(cube->uniforms.at("mvp"), 1, false, glm::value_ptr(camera->Project(model)));
 
   Element::color color(1.0f, 0.0f, 0.0f, 1.0f);
-  glUniform4fv(triangle->uniforms.at("color"), 1, color);
+  glUniform4fv(cube->uniforms.at("color"), 1, color);
 
   oldTime = time;
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  Element::draw(triangle->vao);
+  Element::draw(cube->vao);
 
   glDisable(GL_DEPTH_TEST);
 
