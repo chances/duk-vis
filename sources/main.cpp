@@ -111,9 +111,9 @@ void init() {
   uint count = ARRAY_SIZE(verticesOverlay);
   float* overlayGeom = new float[count];
   std::copy(verticesOverlay, verticesOverlay + count, overlayGeom);
-  Primitives::geometry* vertsO = new Primitives::geometry(overlayGeom, count);
+  Primitives::geometry* geom = new Primitives::geometry(overlayGeom, count);
   overlay = new Element::object("overlay");
-  overlay = Element::create(vertsO, overlay, 4, true, false);
+  overlay = Element::create(geom, overlay, 4, true, false);
   overlay->vao->BindAttribute(overlay->shader->GetAttribute("vertex"),
     *(overlay->vbos[0]), GL::Type::Float, 4, 4 * sizeof(float), 0);
   overlay->bindUniform("mvp");
