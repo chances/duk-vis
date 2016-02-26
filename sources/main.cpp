@@ -99,7 +99,7 @@ void init() {
   Element::vertices verts(verticesTriangle);
   verts.numVerts = ARRAY_SIZE(verticesTriangle);
   triangle = Element::create("triangle", &verts);
-  triangle->bindUniform("model");
+  triangle->bindUniform("mvp");
   triangle->bindUniform("color");
 
   float verticesOverlay[] {
@@ -151,7 +151,7 @@ void render() {
 
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians((float)((rTime / 255) * 360.0)), glm::vec3(0,1,0));
-  glUniformMatrix4fv(triangle->uniforms.at("model"), 1, false, glm::value_ptr(camera->Project(model)));
+  glUniformMatrix4fv(triangle->uniforms.at("mvp"), 1, false, glm::value_ptr(camera->Project(model)));
 
   Element::color color(1.0f, 0.0f, 0.0f, 1.0f);
   glUniform4fv(triangle->uniforms.at("color"), 1, color);
