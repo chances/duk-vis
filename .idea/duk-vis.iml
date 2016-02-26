@@ -6,7 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duk_config.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/Context_GLFW.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/gl/Camera.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/gl/ShaderFile.cpp" isTestSource="false" />
