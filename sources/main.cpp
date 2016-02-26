@@ -75,7 +75,7 @@ void windowRefresh(GLFWwindow* window) {
   if (overlay != NULL && overlay->shader != NULL) {
     glfwMakeContextCurrent(window);
     glUseProgram(*overlay->shader);
-    glUniformMatrix4fv(overlay->uniforms.at("model"), 1, false, glm::value_ptr(
+    glUniformMatrix4fv(overlay->uniforms.at("mvp"), 1, false, glm::value_ptr(
       glm::scale(glm::mat4(1.0f), glm::vec3((float)width, (float)height, 1.0))
     ));
     glUniformMatrix4fv(overlay->uniforms.at("projection"), 1, false, glm::value_ptr(projection));
@@ -127,11 +127,11 @@ void init() {
   overlay = Element::create(&vertsO, overlay, 4, true, false);
   overlay->vao->BindAttribute(overlay->shader->GetAttribute("vertex"),
     *(overlay->vbos[0]), GL::Type::Float, 4, 4 * sizeof(float), 0);
-  overlay->bindUniform("model");
+  overlay->bindUniform("mvp");
   overlay->bindUniform("projection");
   overlay->bindUniform("image");
   overlay->bindUniform("penColor");
-  glUniformMatrix4fv(overlay->uniforms.at("model"), 1, false, glm::value_ptr(
+  glUniformMatrix4fv(overlay->uniforms.at("mvp"), 1, false, glm::value_ptr(
     glm::scale(glm::mat4(1.0f), glm::vec3((float)width, (float)height, 1.0))
   ));
   glUniformMatrix4fv(overlay->uniforms.at("projection"), 1, false, glm::value_ptr(projection));
