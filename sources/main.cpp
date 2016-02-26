@@ -106,7 +106,7 @@ void init() {
     1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f,-1.0f, 1.0f
   };
   Element::vertices verts(vertices);
-  verts.numVerts = ARRAY_SIZE(vertices);
+  verts.numIndices = ARRAY_SIZE(vertices);
   cube = Element::create("cube", &verts);
   cube->bindUniform("mvp");
   cube->bindUniform("color");
@@ -122,7 +122,7 @@ void init() {
     1.0f, 0.0f, 1.0f, 0.0f
   };
   Element::vertices vertsO(verticesOverlay);
-  vertsO.numVerts = ARRAY_SIZE(verticesOverlay);
+  vertsO.numIndices = ARRAY_SIZE(verticesOverlay);
   overlay = new Element::object("overlay");
   overlay = Element::create(&vertsO, overlay, 4, true, false);
   overlay->vao->BindAttribute(overlay->shader->GetAttribute("vertex"),

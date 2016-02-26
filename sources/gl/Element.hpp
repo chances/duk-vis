@@ -37,15 +37,15 @@ namespace Element {
   };
 
   struct vertices {
-    int numVerts;
+    int numIndices;
     float* verts;
-    vertices(float* vertices) : numVerts(0) {
+    vertices(float* vertices) : numIndices(0) {
       verts = vertices;
     }
   };
 
   typedef pair<const GL::VertexArray*, int> vaoVertexCount;
-  map<const GL::VertexArray*, int> vaoVertices;
+  map<const GL::VertexArray*, int> vaoIndices;
 
   typedef pair<const GL::VertexBuffer*, vertices*> vboVertices;
 
@@ -65,7 +65,7 @@ namespace Element {
     }
   };
 
-  object* create(vertices* verts, object* prototype, int indexCount = 3,
+  object* create(vertices* verts, object* prototype, int vertexIndexCount = 3,
       bool loadShaders = true, bool bindAttributes = true) {
     object* obj = prototype;
 
@@ -76,16 +76,17 @@ namespace Element {
       );
     }
 
-    int vertexCount = verts->numVerts / indexCount;
+    int vertexCount = verts->numIndices / vertexIndexCount;
 
     GL::VertexBuffer* vbo = new GL::VertexBuffer(
-      verts->verts, sizeof(float)*verts->numVerts, GL::BufferUsage::StaticDraw
+      verts->verts, sizeof(float)*verts->numIndices, GL::BufferUsage::StaticDraw
     );
 
     obj->vao = new GL::VertexArray();
     if (bindAttributes) {
       obj->vao->BindAttribute(
-        obj->shader->GetAttribute("position"), *vbo, GL::Type::Float, 3, 0, 0
+        obj->shader->GetAttribute("position"),
+        *vbo, GL::Type::Float, vertexIndexCount, 0, 0
       );
     }
 
@@ -93,7 +94,7 @@ namespace Element {
     obj->vboVertices.insert(vboVertices(vbo, verts));
 
     // Add vao to index of vertex counts
-    vaoVertices.insert(vaoVertexCount(obj->vao, vertexCount));
+    vaoIndices.insert(vaoVertexCount(obj->vao, vertexCount));
 
     return obj;
   }
@@ -106,6 +107,6 @@ namespace Element {
 
   void draw(GL::VertexArray* vao) {
     glBindVertexArray(*vao);
-    glDrawArrays(GL::Primitive::Triangle, 0, vaoVertices.at(vao));
+    glDrawArrays(GL::Primitive::Triangle, 0, vaoIndices.at(vao));
   }
 }
