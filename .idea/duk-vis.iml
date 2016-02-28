@@ -7,9 +7,10 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Module.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Module.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/duktape.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Module.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/JavaScriptContext.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/JavaScriptContext.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/cinder.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/rxcpp.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/duktape.cmake" isTestSource="false" />

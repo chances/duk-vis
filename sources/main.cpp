@@ -1,9 +1,14 @@
+#include <vector>
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
+#include "scripting/JavaScriptContext.hpp"
+
 using namespace ci;
 using namespace ci::app;
+
+typedef Scripting::interface visualization;
 
 class DukVisApp : public AppMac {
   public:
@@ -14,10 +19,30 @@ class DukVisApp : public AppMac {
     gl::BatchRef	mCube;
 
     gl::BatchRef    mOverlay;
+
+    Scripting::JavaScriptContext* mJSContext;
+    vector<Scripting::interface> mVisualizations;
 };
 
 void DukVisApp::setup() {
   RendererRef renderer = getRenderer();
+
+  fs::path dataPath = Platform::get()->getExecutablePath();
+  dataPath /= fs::path("data");
+
+  addAssetDirectory(dataPath);
+
+  mJSContext = new Scripting::JavaScriptContext();
+  if (mJSContext->isValid()) {
+    auto vis = visualization::loadSourceFromFile(
+      dataPath.append(std::string("js/spectrum.vis.js"))
+    );
+    std::cout << "Loaded vis file: " << vis.path << endl;
+    mVisualizations.push_back(vis);
+  } else {
+    std::cout << "Could not create JS context, aborting..." << std::endl;
+    exit(1);
+  }
 
   auto lambert = gl::ShaderDef().lambert().color();
   gl::GlslProgRef shader = gl::getStockShader(lambert);

@@ -7,3 +7,8 @@ CMakeFiles
 
 # build dir
 build
+
+# Duktape cruft
+vendor/duktape-1.4.0
+!vendor/duktape-1.4.0/src/*.h
+!vendor/duktape-1.4.0/src/*.c
