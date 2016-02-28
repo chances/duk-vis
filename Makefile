@@ -27,8 +27,8 @@ run: build
 # Configure project (setup submoduale dependencies)
 configure:
 	git submodule init
-	git submodule update
-	cd vendor/OOGL; git fetch; git checkout osx; make
+	git submodule update --depth 1
+	./build-cinder-osx.sh
 
 clean:
 	rm -rf build

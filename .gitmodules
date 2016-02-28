@@ -1,6 +1,3 @@
 [submodule "vendor/RxCpp"]
 	path = vendor/RxCpp
 	url = https://github.com/Reactive-Extensions/RxCpp.git
-[submodule "vendor/OOGL"]
-	path = vendor/OOGL
-	url = git://github.com/Overv/OOGL.git
