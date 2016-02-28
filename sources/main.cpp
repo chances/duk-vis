@@ -6,8 +6,6 @@
 using namespace ci;
 using namespace ci::app;
 
-int width = 800, height = 600;
-
 class DukVisApp : public AppMac {
   public:
     void setup() override;
