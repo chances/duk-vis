@@ -14,6 +14,7 @@
       <sourceFolder url="file://$MODULE_DIR$/cmake/cinder.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/rxcpp.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/duktape.cmake" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
