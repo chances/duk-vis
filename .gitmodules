@@ -1,3 +1,6 @@
 [submodule "vendor/RxCpp"]
 	path = vendor/RxCpp
 	url = https://github.com/Reactive-Extensions/RxCpp.git
+[submodule "vendor/semver-cpp"]
+	path = vendor/semver-cpp
+	url = https://github.com/euskadi31/semver-cpp.git

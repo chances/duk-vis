@@ -189,6 +189,7 @@
           <root url="file:///usr/local/include" />
           <root url="file://$MODULE_DIR$/vendor/Cinder/include" />
           <root url="file://$MODULE_DIR$/vendor/RxCpp/Rx/v2/src" />
+          <root url="file://$MODULE_DIR$/vendor/semver-cpp/include" />
           <root url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src" />
           <root url="file:///Library/Frameworks/Libmacgpg.framework/Headers" />
           <root url="file:///Library/Frameworks/Mono.framework/Headers" />
@@ -373,6 +374,7 @@
           <root url="file:///usr/local/include" />
           <root url="file://$MODULE_DIR$/vendor/Cinder/include" />
           <root url="file://$MODULE_DIR$/vendor/RxCpp/Rx/v2/src" />
+          <root url="file://$MODULE_DIR$/vendor/semver-cpp/include" />
           <root url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src" />
           <root url="file:///Library/Frameworks/Libmacgpg.framework/Headers" />
           <root url="file:///Library/Frameworks/Mono.framework/Headers" />
