@@ -3,17 +3,19 @@ project(duk_vis)
 
 set(BUILD_TARGET_NAME "duk_vis")
 
+set(DATA_DIR "${CMAKE_BINARY_DIR}/data")
+
 file(GLOB SHADER_DATA_FILES
   "${CMAKE_SOURCE_DIR}/data/*.glsl"
 )
-file(MAKE_DIRECTORY ./data)
-file(COPY ${SHADER_DATA_FILES} DESTINATION ./data)
+file(MAKE_DIRECTORY ${DATA_DIR})
+file(COPY ${SHADER_DATA_FILES} DESTINATION ${DATA_DIR})
 
 file(GLOB SCRIPT_DATA_FILES
     "${CMAKE_SOURCE_DIR}/data/js/*.js"
     )
-file(MAKE_DIRECTORY ./data/js)
-file(COPY ${SHADER_DATA_FILES} DESTINATION ./data/js)
+file(MAKE_DIRECTORY "${DATA_DIR}/js")
+file(COPY ${SCRIPT_DATA_FILES} DESTINATION "${DATA_DIR}/js")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
