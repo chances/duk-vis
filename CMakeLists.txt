@@ -14,10 +14,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 include(cmake/cinder.cmake)
 include(cmake/rxcpp.cmake)
 
-list(APPEND SOURCE_FILES
-    sources/gl/ShaderFile.cpp
-    sources/gl/Camera.cpp
-)
+# list(APPEND SOURCE_FILES
+#     sources/gl/ShaderFile.cpp
+#     sources/gl/Camera.cpp
+# )
 
 list(APPEND SOURCE_FILES sources/main.cpp)
 add_executable(${BUILD_TARGET_NAME} ${SOURCE_FILES})

@@ -20,8 +20,17 @@ macro(link_lib libName)
 endmacro()
 
 link_lib(OpenGL)
+link_lib(glfw3)
+
 link_lib(Foundation)
 link_lib(Cocoa)
 link_lib(IOKit)
+
+link_lib(CoreMedia)
+link_lib(CoreAudio)
+link_lib(AudioUnit)
+link_lib(AudioToolbox)
 link_lib(CoreVideo)
-link_lib(glfw3)
+link_lib(IOSurface)
+link_lib(AVFoundation)
+link_lib(Accelerate)
