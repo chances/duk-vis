@@ -1,5 +1,5 @@
 -I/usr/include
 -I/usr/local/include
 -IGLFW/glfw3.h
--I/Users/chancesnow/Projects/C++/duk-vis/vendor/OOGL/include
+-I/Users/chancesnow/Projects/C++/duk-vis/vendor/Cinder/include
 -I/Users/chancesnow/Projects/C++/duk-vis/vendor/RxCpp/Rx/v2/src
