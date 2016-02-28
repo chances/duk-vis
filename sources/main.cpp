@@ -11,7 +11,6 @@ int width = 800, height = 600;
 class DukVisApp : public AppMac {
   public:
     void setup() override;
-    void resize() override;
     void draw() override;
 
     CameraPersp		mCamera;
@@ -35,10 +34,6 @@ void DukVisApp::setup() {
 
   gl::enableDepthRead();
   gl::enableDepthWrite();
-}
-
-void DukVisApp::resize() {
-  draw();
 }
 
 void DukVisApp::draw() {
