@@ -7,13 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/vendor/duktape-1.4.0/src/duktape.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/gl/Camera.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/gl/ShaderFile.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/gl/Camera.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/gl/ShaderFile.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/cmake/duktape.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/cinder.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/rxcpp.cmake" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/cmake/oogl.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cmake/duktape.cmake" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
