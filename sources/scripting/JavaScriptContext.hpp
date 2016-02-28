@@ -39,6 +39,8 @@ namespace Scripting {
       ~JavaScriptContext();
 
       bool isValid();
+      bool isCurrent();
+
       void makeCurrent();
 
       void handleFatalDuktapeError(duk_context *ctx, duk_errcode_t code, const char *msg);

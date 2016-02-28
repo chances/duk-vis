@@ -31,6 +31,10 @@ namespace Scripting {
     return ctx != NULL;
   }
 
+  bool JavaScriptContext::isCurrent() {
+    return jsContext == this;
+  }
+
   void JavaScriptContext::makeCurrent() {
     jsContext = this;
   }
