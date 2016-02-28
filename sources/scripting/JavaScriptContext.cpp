@@ -44,6 +44,7 @@ namespace Scripting {
     cerr << code << ": " << msg;
 
     // TODO: If error code is >= 100, it's JS error, not some duktape error; handle that
+    // http://duktape.org/api.html#defines.5
 
     duk_dump_context_stderr(ctx);
     duk_destroy_heap(ctx);
