@@ -33,14 +33,14 @@ void DukVisApp::setup() {
   addAssetDirectory(dataPath);
 
   mJSContext = new Scripting::JavaScriptContext();
-  if (mJSContext->isValid()) {
-    auto vis = visualization::loadSourceFromFile(
-      dataPath.append(std::string("js/spectrum.vis.js"))
-    );
-    std::cout << "Loaded vis file: " << vis.path << endl;
+  auto vis = visualization::loadSourceFromFile(
+    dataPath.append(std::string("js/spectrum.vis.js"))
+  );
+  if (mJSContext->bindInterface((&vis))) {
+    cout << "Loaded visualization: " << vis.module->name << " v" << vis.module->version << endl;
     mVisualizations.push_back(vis);
   } else {
-    std::cout << "Could not create JS context, aborting..." << std::endl;
+    cerr << "Could not create JS context, aborting...\n";
     exit(1);
   }
 

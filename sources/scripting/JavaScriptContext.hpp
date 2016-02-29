@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "duktape.h"
 #include "cinder/Filesystem.h"
 
+#include "Sandbox.hpp"
 #include "Module.hpp"
 
 using namespace std;
@@ -36,6 +38,7 @@ namespace Scripting {
   class JavaScriptContext {
     public:
       JavaScriptContext();
+      JavaScriptContext(fs::path initialScript);
       ~JavaScriptContext();
 
       bool isValid();
@@ -43,8 +46,11 @@ namespace Scripting {
 
       void makeCurrent();
 
+      bool bindInterface(interface* interfaceToBind);
+
       void handleFatalDuktapeError(duk_context *ctx, duk_errcode_t code, const char *msg);
     private:
       duk_context* ctx;
+      interface* currentInterface;
   };
 }
