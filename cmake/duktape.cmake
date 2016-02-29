@@ -3,7 +3,7 @@
 include_directories(vendor/duktape-1.4.0/src)
 
 # Configure Duktape
-add_definitions("-DDUK_OPT_CPP_EXCEPTIONS")
+add_definitions("-DDUK_OPT_CPP_EXCEPTIONS" "-DDUK_CAUSE_SEGFAULT")
 
 list(APPEND SOURCE_FILES
     vendor/duktape-1.4.0/src/duk_config.h
