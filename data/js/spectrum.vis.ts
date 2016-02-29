@@ -12,7 +12,7 @@
 
 function update(type: UpdateType) {
     if (type === UpdateType.INIT)
-        return "initialization?";
+        return "initialization";
     if (type === UpdateType.RESIZE)
         return "resize update";
 }

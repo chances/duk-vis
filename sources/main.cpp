@@ -13,6 +13,7 @@ typedef Scripting::interface visualization;
 class DukVisApp : public AppMac {
   public:
     void setup() override;
+    void resize() override;
     void draw() override;
 
     CameraPersp		mCamera;
@@ -22,6 +23,7 @@ class DukVisApp : public AppMac {
 
     Scripting::JavaScriptContext* mJSContext;
     vector<Scripting::interface> mVisualizations;
+    int currentVisIndex = 0;
 };
 
 void DukVisApp::setup() {
@@ -56,6 +58,18 @@ void DukVisApp::setup() {
 
   gl::enableDepthRead();
   gl::enableDepthWrite();
+}
+
+void DukVisApp::resize() {
+  if (mJSContext->isValid()) {
+    if (!mJSContext->isCurrent())
+      mJSContext->makeCurrent();
+
+    if (!mVisualizations.at(currentVisIndex).screen->setSize(getWindowSize()))
+      cerr << "Could not update screen size for scripts\n";
+
+    mVisualizations.at(currentVisIndex).module->update(Scripting::UpdateType::RESIZE);
+  }
 }
 
 void DukVisApp::draw() {

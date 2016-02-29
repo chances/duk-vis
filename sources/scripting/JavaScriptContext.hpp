@@ -7,6 +7,7 @@
 
 #include "Sandbox.hpp"
 #include "Module.hpp"
+#include "Screen.hpp"
 
 using namespace std;
 using namespace ci;
@@ -16,12 +17,14 @@ namespace Scripting {
     fs::path path;
     string source;
     Module* module;
+    Screen* screen;
 
     static interface loadSourceFromFile(fs::path path) {
       interface i;
 
       i.path = path;
       i.module = NULL;
+      i.screen = NULL;
 
       try {
         fs::load_string_file(path, i.source);

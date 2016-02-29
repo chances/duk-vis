@@ -74,6 +74,14 @@ namespace Scripting {
       return false;
     }
 
+    // Bind context to a new Screen interface
+    interfaceToBind->screen = new Screen(ctx, 800, 600);
+    if (!interfaceToBind->screen->isReady()) {
+      cerr << "Failed to bind Screen to context.\n";
+
+      return false;
+    }
+
     // TODO: Bind Screen and Graphics interfaces to context
 
     if (duk_peval_string(ctx, interfaceToBind->source.c_str()) != 0) {

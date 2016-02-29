@@ -13,6 +13,7 @@ list(APPEND SOURCE_FILES
     sources/scripting/Error.cpp
     sources/scripting/Sandbox.cpp
     sources/scripting/Module.cpp
+    sources/scripting/Screen.cpp
 )
 
 SET_SOURCE_FILES_PROPERTIES(vendor/duktape-1.4.0/src/duktape.c PROPERTIES LANGUAGE CXX)

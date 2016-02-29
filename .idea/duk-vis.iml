@@ -9,12 +9,14 @@
       <sourceFolder url="file://$MODULE_DIR$/sources/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/JavaScriptContext.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Module.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Screen.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Error.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Sandbox.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Error.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/JavaScriptContext.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Sandbox.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Module.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Error.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sources/scripting/Screen.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/cinder.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/rxcpp.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/cmake/duktape.cmake" isTestSource="false" />
