@@ -80,6 +80,12 @@ interface Screen {
     graphics: Graphics;
 }
 
+declare var dukvis: {
+    module: Module;
+    fft: FFT;
+    screen: Screen;
+};
+
 /**
  * A container for the visualization as well as its user defined metadata
  */
