@@ -12,3 +12,6 @@ build
 vendor/duktape-1.4.0
 !vendor/duktape-1.4.0/src/*.h
 !vendor/duktape-1.4.0/src/*.c
+
+# JS Sources
+data/js/*.js
