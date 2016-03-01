@@ -66,21 +66,11 @@ namespace Scripting {
           // Call the script's update function
           response = callUpdate(updateType);
 
-//        if (duk_get_prop_string(ctx, -1, "module") && !duk_is_undefined(ctx, -1)) {
-//          try {
-//            duk_push_string(ctx, "")
-//          } catch (...) {
-//            cerr << "problem setting <global>.module.name\n";
-//            cerr << "top: " << duk_get_top(ctx) << endl;
-//
-//            return;
-//          }
-//        } else { return; }
-
           break;
         case UpdateType::RESIZE:
           // Call the script's update function
           response = callUpdate(updateType);
+
           break;
         default:
           break;

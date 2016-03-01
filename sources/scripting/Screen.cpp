@@ -86,14 +86,12 @@ namespace Scripting {
         duk_push_number(ctx, height);
         if (!duk_put_prop_string(ctx, -2, "height")) {
           cerr << "problem setting <global>.screen.height\n";
-          // cerr << "top: " << duk_get_top(ctx) << endl;
           duk_set_top(ctx, 0);
 
           return false;
         }
       } catch (...) {
         cerr << "problem setting <global>.screen.height\n";
-        // cerr << "top: " << duk_get_top(ctx) << endl;
         duk_set_top(ctx, 0);
 
         return false;
