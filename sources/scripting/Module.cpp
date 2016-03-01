@@ -9,6 +9,7 @@ namespace Scripting {
 
     if (duk_peval_string(ctx, moduleEval.c_str()) != 0) {
       cerr << "problem setting global object\n";
+      duk_set_top(ctx, 0);
 
       return;
     }
@@ -18,13 +19,13 @@ namespace Scripting {
     try {
       if (!duk_put_prop_string(ctx, -2, "module")) {
         cerr << "problem setting <global>.module\n";
-        cerr << "top: " << duk_get_top(ctx) << endl;
+        duk_set_top(ctx, 0);
 
         return;
       }
     } catch (...) {
       cerr << "problem setting <global>.module\n";
-      cerr << "top: " << duk_get_top(ctx) << endl;
+      duk_set_top(ctx, 0);
 
       return;
     }

@@ -12,6 +12,7 @@ namespace Scripting {
 
     if (duk_peval_string(ctx, screenEval.c_str()) != 0) {
       cerr << "problem evaluating screen shell\n";
+      duk_set_top(ctx, 0);
 
       return;
     }
@@ -21,13 +22,13 @@ namespace Scripting {
     try {
       if (!duk_put_prop_string(ctx, -2, "screen")) {
         cerr << "problem setting <global>.screen\n";
-        cerr << "top: " << duk_get_top(ctx) << endl;
+        duk_set_top(ctx, 0);
 
         return;
       }
     } catch (...) {
       cerr << "problem setting <global>.screen\n";
-      cerr << "top: " << duk_get_top(ctx) << endl;
+      duk_set_top(ctx, 0);
 
       return;
     }
@@ -70,13 +71,13 @@ namespace Scripting {
         duk_push_number(ctx, width);
         if (!duk_put_prop_string(ctx, -2, "width")) {
           cerr << "problem setting <global>.screen.width\n";
-          cerr << "top: " << duk_get_top(ctx) << endl;
+          duk_set_top(ctx, 0);
 
           return false;
         }
       } catch (...) {
         cerr << "problem setting <global>.screen.width\n";
-        cerr << "top: " << duk_get_top(ctx) << endl;
+        duk_set_top(ctx, 0);
 
         return false;
       }
@@ -85,13 +86,15 @@ namespace Scripting {
         duk_push_number(ctx, height);
         if (!duk_put_prop_string(ctx, -2, "height")) {
           cerr << "problem setting <global>.screen.height\n";
-          cerr << "top: " << duk_get_top(ctx) << endl;
+          // cerr << "top: " << duk_get_top(ctx) << endl;
+          duk_set_top(ctx, 0);
 
           return false;
         }
       } catch (...) {
         cerr << "problem setting <global>.screen.height\n";
-        cerr << "top: " << duk_get_top(ctx) << endl;
+        // cerr << "top: " << duk_get_top(ctx) << endl;
+        duk_set_top(ctx, 0);
 
         return false;
       }

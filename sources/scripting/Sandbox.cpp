@@ -37,13 +37,13 @@ namespace Scripting {
               duk_pop_n(ctx, 2);
             } else {
               cerr << "problem setting console.print\n";
-              cerr << "top: " << duk_get_top(ctx) << endl;
+              duk_set_top(ctx, 0);
 
               return false;
             }
           } catch (...) {
             cerr << "exception setting console.print\n";
-            cerr << "top: " << duk_get_top(ctx) << endl;
+            duk_set_top(ctx, 0);
 
             return false;
           }
@@ -58,13 +58,13 @@ namespace Scripting {
             duk_pop_n(ctx, 2);
           } else {
             cerr << "problem setting console.log\n";
-            cerr << "top: " << duk_get_top(ctx) << endl;
+            duk_set_top(ctx, 0);
 
             return false;
           }
         } catch (...) {
           cerr << "exception setting console.log\n";
-          cerr << "top: " << duk_get_top(ctx) << endl;
+          duk_set_top(ctx, 0);
 
           return false;
         }
@@ -102,7 +102,7 @@ namespace Scripting {
 
     if (duk_peval_string_noresult(ctx, "this.dukvis = this") != 0) {
       cerr << "problem binding dukvis global\n";
-      cerr << "top: " << duk_get_top(ctx) << endl;
+      duk_set_top(ctx, 0);
 
       return false;
     }
