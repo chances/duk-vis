@@ -17,7 +17,7 @@ class DukVisApp : public AppMac {
     void draw() override;
 
     CameraPersp mCamera;
-    gl::BatchRe mCube;
+    gl::BatchRef mCube;
 
     gl::BatchRef mOverlay;
 
