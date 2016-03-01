@@ -41,7 +41,7 @@ namespace Scripting {
   }
 
   void Module::render() {
-
+    // TODO: Implement render
   }
 
   void Module::update(UpdateType updateType) {
@@ -79,7 +79,6 @@ namespace Scripting {
       // Pop off module property
       duk_pop(ctx);
     }
-
 
     // Pop off global object
     duk_pop(ctx);

@@ -16,10 +16,10 @@ class DukVisApp : public AppMac {
     void resize() override;
     void draw() override;
 
-    CameraPersp		mCamera;
-    gl::BatchRef	mCube;
+    CameraPersp mCamera;
+    gl::BatchRe mCube;
 
-    gl::BatchRef    mOverlay;
+    gl::BatchRef mOverlay;
 
     Scripting::JavaScriptContext* mJSContext;
     vector<Scripting::interface> mVisualizations;
