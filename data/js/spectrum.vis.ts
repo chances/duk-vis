@@ -2,14 +2,6 @@
 
 // Spectrum DukVis visualization
 
-/*
- * Should a visualization draw to a texture on the CPU? nah
- *
- * Can a fragment shader draw to a bound texture given some array of input?
- *
- * A Vertex buffer, maybe?
-*/
-
 function update(type: UpdateType) {
     if (type === UpdateType.INIT)
         return "initialization";
