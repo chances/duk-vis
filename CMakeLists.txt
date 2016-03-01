@@ -26,11 +26,6 @@ include(cmake/rxcpp.cmake)
 
 include_directories(vendor/semver-cpp/include)
 
-# list(APPEND SOURCE_FILES
-#     sources/gl/ShaderFile.cpp
-#     sources/gl/Camera.cpp
-# )
-
 list(APPEND SOURCE_FILES sources/main.cpp)
 add_executable(${BUILD_TARGET_NAME} ${SOURCE_FILES})
 
